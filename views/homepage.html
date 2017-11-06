@@ -1,0 +1,29 @@
+{% extends 'master.html' %}
+{% import 'macros.html' as macros %}
+
+{% block embed %}
+  <div class="row">
+    <div class="column" style="text-align:center;margin-top: 5%">
+      <h1>Hire the best, no matter where life may take them.</h1>
+      <p>Use Remote Rush to find the next remote member of your team!</p>
+      <a href="/post" id="add-post" class="btn purple">Post a Job</a>
+    </div>
+  </div>
+  {% if jobs.length == 0 %}
+    No jobs so far. Wanna be the first?
+  {% endif %}
+
+  {% if jobs.length > 0 %}
+    <table class="table">
+      <tbody>
+      {% for job in jobs %}
+        {{ macros.renderJobRow(ctx, job, '/') }}
+      {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

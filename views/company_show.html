@@ -1,0 +1,66 @@
+{% extends 'master.html' %}
+{% block embed %}
+
+<div class="checkout-panel">
+    <div class="panel-body">
+        <h2 class="title">Edit Company</h2>
+
+        <div class="input-fields">
+            <form action="/admin/companies/{{company.id}}" method="POST">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" value="{{company.name}}"/>
+
+                <label for="url">URL</label>
+                <input type="text" name="url" id="url" value="{{company.url}}"/>
+
+                <label for="year_founded">Year Founded</label>
+                <input type="text" name="year_founded" id="year_founded" value="{{company.year_founded}}"/>
+
+                <label for="revenue">Revenue</label>
+                <select name="revenue" id="revenue">
+                    <option value="0">0-1M</option>
+                    <option value="1">1-5M</option>
+                    <option value="5">5-10M</option>
+                    <option value="10">10M+</option>
+                </select>
+
+                <label for="avg_salaries">Average Salaries</label>
+                <input type="text" name="avg_salaries" id="avg_salaries" value="{{company.avg_salaries}}"/>
+
+                <label for="tags">Tags</label>
+                <select id="tags" name="tags"></select>
+
+                <div>
+                    <input type="submit" style="color:white" class="btn purple" value="Update />
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script type="text/javascript" src="/js/choices.min.js"></script>
+<script>const tags = [];</script>
+{% for tag in company.tags %}
+<script>tags.push({
+    label: '{{tag}}',
+    value: '{{tag}}',
+    id: '{{tag}}'
+})</script>
+{% endfor %}
+
+<script>
+    new Choices('#tags', {
+        silent: false,
+        items: tags,
+        searchFields: ['label', 'value'],
+        position: 'auto',
+    });
+
+    document.getElementById('tags')
+</script>
+{% endblock %}

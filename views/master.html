@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Remote Rush - Remote Jobs: Programming, DevOps, and SysAdmin</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/skeleton.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/choices.min.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+</head>
+<body>
+
+<!-- Primary Page Layout
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<div class="sw">
+  <form>
+    <input id="search" type="search" class="search" placeholder="Coming Soon...company: revenue > 1M, language: c, java..." disabled style="opacity:0.5"/>
+    <button class="go" style="opacity:0.5"><span class="entypo-search"></span></button>
+    <a href="/" class="logo" title="Remote Rush">
+
+      <svg width="204px" height="40px" viewBox="0 0 204 93" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g id="Logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-size="64" font-weight="normal">
+          <g id="Group-2" transform="translate(-2.000000, -16.000000)">
+            <text id="Rush" font-family="Halcion" fill="#FFFFFF">
+              <tspan x="32.724" y="109">Rush</tspan>
+            </text>
+            <text id="Remote" fill="#9F81D4" font-family="Seravek-Italic, Seravek" font-style="italic">
+              <tspan x="0.42" y="59">Remote</tspan>
+            </text>
+          </g>
+        </g>
+      </svg>
+    </a>
+  </form>
+</div>
+
+<div class="container">
+  <div id="main" class="content">
+    <!-- Display flash message -->
+    {% if ctx.flash and ctx.flash.message %}
+    <div class="alert alert-{{ ctx.flash.message[0] }}"
+         role="alert">
+      {{ ctx.flash.message[1] }}
+    </div>
+    {% endif %}
+
+    {% if ctx.currUser %}
+        <a style="color:black" class="btn btn-default navbar-btn" href="/admin">Approve</a>
+        <form action="/sessions/{{ ctx.currSessionId }}" method="POST" class="navbar-right">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="btn btn-link navbar-btn">
+            Logout
+          </button>
+        </form>
+    {% endif %}
+
+    {% block embed %}{% endblock %}
+  </div>
+</div>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=default,fetch,Promise,Symbol"></script>
+<script type="text/javascript" src="/js/app.js"></script>
+
+{% block scripts %}
+{% endblock %}
+</body>
+</html>

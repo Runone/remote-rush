@@ -1,0 +1,30 @@
+{% extends 'master.html' %}
+{% import 'macros.html' as macros %}
+
+{% block embed %}
+<div class="row">
+    <div class="column" style="text-align:center;margin-top: 5%">
+        <h1>Work where you feel best, no matter the location.</h1>
+        <p>Use Remote Rush to find your next remote employer!</p>
+        <a href="/" class="btn purple">Find a Job</a>
+    </div>
+</div>
+
+{% if companies.length == 0 %}
+    No companies so far. Wanna be the first?
+{% endif %}
+
+{% if companies.length > 0 %}
+<table class="table">
+    <tbody>
+    {% for company in companies %}
+        {{ macros.renderCompanyRow(ctx, company, '/') }}
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

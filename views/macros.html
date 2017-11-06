@@ -1,0 +1,82 @@
+
+{#
+  Put your view macros here.
+
+  If you find yourself repeating the same markup a lot, consider wrapping
+  it in a macro. They're basically view helper functions that output HTML.
+#}
+
+{% macro renderJobRow(ctx, job) %}
+  <tr>
+    <td data-label="company">{{ job.company.name }}</td>
+    <td data-label="position"><a href="/job/{{job.id}}" class="position">{{ job.title }}</a></td>
+    <td data-label="tags">
+      <ul class="tags">
+        {% for tag in job.tags %}
+          <li><a href="#">{{ tag }} <span>1</span></a></li>
+        {% endfor %}
+      </ul>
+    </td>
+    <td data-label="posted">{{ job.created_at|formatDate }}</td>
+  </tr>
+{% endmacro %}
+
+{% macro renderCompanyRow(ctx, company) %}
+<tr>
+  <td data-label="logo">{{ company.logo }}</td>
+  <td data-label="company">{{ company.name }}</td>
+  <td data-label="url">{{ company.url }}</td>
+  <td data-label="revenue">{{ company.revenue }}</td>
+  <td data-label="avg_salary">{{ company.avg_salaries }}</td>
+  <td data-label="year_founded">{{ company.year_founded }}</td>
+  <td data-label="tags">
+    <ul class="tags">
+      {% for tag in company.tags %}
+      <li><a href="#">{{ tag }} <span>1</span></a></li>
+      {% endfor %}
+    </ul>
+  </td>
+  {% if ctx.currUser %}
+    <td>
+      <a href="/admin/companies/{{company.id}}">Edit</a>
+    </td>
+  {% endif %}
+</tr>
+{% endmacro %}
+
+
+{% macro renderPaginator(paginator) %}
+  {% if paginator %}
+    {# TODO: Extract to CSS file #}
+    <style>
+     .pagination > li > span {
+       color: #777;
+       border-top: 0;
+       border-bottom: 0;
+       border-left: 1px solid #ddd;
+       border-right: 1px solid #ddd;
+     }
+     .pagination > li > span:hover {
+       color: #777;
+       background-color: transparent;
+     }
+    </style>
+    <nav class="paginator" style="text-align:center;">
+      <ul class="pagination">
+        {% for pg in paginator %}
+          {% if pg.kind == 'BUTTON' %}
+            <li class="{% if pg.isActive %}active{% endif %}">
+              <a href="{{ pg.href }}">
+                <span aria-hidden="true">{{ pg.text }}</span>
+              </a>
+            </li>
+          {% elif pg.kind == 'SEPARATOR' %}
+            <li class="separator">
+              <span>...</span>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </nav>
+  {% endif %}
+{% endmacro %}
