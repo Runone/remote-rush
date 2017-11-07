@@ -54,8 +54,10 @@ CREATE TABLE companies (
   revenue       int NULL,
   year_founded  int NULL,
   avg_salaries  json NULL,
+  stack         json NULL,
   tags          json NULL,
-  created_at    timestamptz NOT NULL DEFAULT NOW()
+  created_at    timestamptz NOT NULL DEFAULT NOW(),
+  updated_at    timestamptz NOT NULL DEFAULT NOW()
 );
 
 ------------------------------------------------------------

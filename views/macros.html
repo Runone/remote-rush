@@ -23,19 +23,25 @@
 
 {% macro renderCompanyRow(ctx, company) %}
 <tr>
-  <td data-label="logo">{{ company.logo }}</td>
+  <td data-label="logo"><img src="{{ company.logo }}" /></td>
   <td data-label="company">{{ company.name }}</td>
-  <td data-label="url">{{ company.url }}</td>
-  <td data-label="revenue">{{ company.revenue }}</td>
-  <td data-label="avg_salary">{{ company.avg_salaries }}</td>
+  <td data-label="url"><a href="{{ company.url }}">{{ company.url }}</a></td>
   <td data-label="year_founded">{{ company.year_founded }}</td>
-  <td data-label="tags">
+  <td data-label="revenue">{{ company.revenue|formatRevenue }}</td>
+  <td data-label="avg_salary">
+      <ul class="tags purple">
+          {% for k, val in company.avg_salaries %}
+            {% if val %}<li><a href="#">{{ k }} <span>${{ val }}</span></a></li>{% endif %}
+          {% endfor %}
+      </ul>
+  </td>
+  <!--<td data-label="tags">
     <ul class="tags">
       {% for tag in company.tags %}
-      <li><a href="#">{{ tag }} <span>1</span></a></li>
+        <li><a href="#">{{ tag }} <span>1</span></a></li>
       {% endfor %}
     </ul>
-  </td>
+  </td>-->
   {% if ctx.currUser %}
     <td>
       <a href="/admin/companies/{{company.id}}">Edit</a>

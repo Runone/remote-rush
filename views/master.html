@@ -67,10 +67,10 @@
     {% endif %}
 
     {% if ctx.currUser %}
-        <a style="color:black" class="btn btn-default navbar-btn" href="/admin">Approve</a>
-        <form action="/sessions/{{ ctx.currSessionId }}" method="POST" class="navbar-right">
+        <a style="color:black; font-size: 14px; float:left" href="/admin">Approve</a>
+        <form style="margin-bottom: 0" action="/sessions/{{ ctx.currSessionId }}" method="POST" class="navbar-right">
           <input type="hidden" name="_method" value="DELETE">
-          <button type="submit" class="btn btn-link navbar-btn">
+          <button type="submit" class="btn-link navbar-btn" style="float:right">
             Logout
           </button>
         </form>

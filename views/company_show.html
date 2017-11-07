@@ -7,6 +7,9 @@
 
         <div class="input-fields">
             <form action="/admin/companies/{{company.id}}" method="POST">
+                <label for="name">Logo</label>
+                <input type="text" name="logo" id="logo" value="{{company.logo}}"/>
+
                 <label for="name">Name</label>
                 <input type="text" name="name" id="name" value="{{company.name}}"/>
 
@@ -18,20 +21,23 @@
 
                 <label for="revenue">Revenue</label>
                 <select name="revenue" id="revenue">
-                    <option value="0">0-1M</option>
-                    <option value="1">1-5M</option>
-                    <option value="5">5-10M</option>
-                    <option value="10">10M+</option>
+                    {% for rev in revenue %}
+                        <option value="{{loop.index - 1}}">{{rev}}</option>
+                    {% endfor %}
                 </select>
 
                 <label for="avg_salaries">Average Salaries</label>
-                <input type="text" name="avg_salaries" id="avg_salaries" value="{{company.avg_salaries}}"/>
+                Engineering: <input type="text" name="avg_engineering" value="{{company.avg_salaries.engineering}}"/>
+                Marketing: <input type="text" name="avg_marketing" value="{{company.avg_salaries.marketing}}"/>
+                Sales: <input type="text" name="avg_sales" value="{{company.avg_salaries.sales}}"/>
+                Business: <input type="text" name="avg_business" value="{{company.avg_salaries.business}}"/>
+                Misc: <input type="text" name="avg_misc" value="{{company.avg_salaries.misc}}"/>
 
                 <label for="tags">Tags</label>
-                <select id="tags" name="tags"></select>
+                <input type="text" id="tags" class="select-multiple" name="tags" data-type="text" />
 
                 <div>
-                    <input type="submit" style="color:white" class="btn purple" value="Update />
+                    <input type="submit" style="color:white" class="btn purple" value="Update" />
                 </div>
             </form>
 
@@ -59,6 +65,7 @@
         items: tags,
         searchFields: ['label', 'value'],
         position: 'auto',
+        removeItemButton: true
     });
 
     document.getElementById('tags')

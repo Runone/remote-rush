@@ -10,7 +10,6 @@ const config = require('./config')
 const mw = require('./middleware')
 const belt = require('./belt')
 const cancan = require('./cancan')
-
 // //////////////////////////////////////////////////////////
 
 const app = new Koa()
@@ -38,7 +37,7 @@ const nunjucksOptions = {
     // let us use `can(USER, ACTION, TARGET)` authorization-checks in templates
     can: cancan.can,
     cancan,
-    config,
+    config
   },
   // filters are functions that we can pipe values to from nunjucks templates.
   // e.g. {{ user.uname | md5 | toAvatarUrl }}
@@ -49,6 +48,7 @@ const nunjucksOptions = {
     md5: belt.md5,
     toAvatarUrl: belt.toAvatarUrl,
     autolink: belt.autolink,
+    formatRevenue: belt.formatRevenue
   },
 }
 

@@ -3,10 +3,10 @@
 
 {% block embed %}
 <div class="row">
-    <div class="column" style="text-align:center;margin-top: 5%">
+    <div class="column" style="text-align:center">
         <h1>Work where you feel best, no matter the location.</h1>
         <p>Use Remote Rush to find your next remote employer!</p>
-        <a href="/" class="btn purple">Find a Job</a>
+        <a href="#" class="btn purple" disabled>Find a Job <small>(Coming soon)</small></a>
     </div>
 </div>
 
@@ -16,6 +16,17 @@
 
 {% if companies.length > 0 %}
 <table class="table">
+    <thead>
+        <tr>
+            <td data-label="logo"></td>
+            <td data-label="name">Name</td>
+            <td data-label="url">URL</td>
+            <td data-label="founded">Founded</td>
+            <td data-label="revenue">Revenue</td>
+            <td data-label="salaries">Salaries</td>
+            <td data-label=""></td>
+        </tr>
+    </thead>
     <tbody>
     {% for company in companies %}
         {{ macros.renderCompanyRow(ctx, company, '/') }}

@@ -135,11 +135,11 @@ exports.getCompanyById = async function(companyId) {
 }
 
 exports.updateCompany = async function(companyId, fields) {
-    assert(Number.isInteger(companyId))
-    const WHITELIST = ['logo', 'url', 'revenue', 'avg_salaries', 'year_founded', 'tags']
-    assert(Object.keys(fields).every(key => WHITELIST.indexOf(key) > -1))
+    fields.avg_salaries = fields.avg_salaries || '{}'
+    fields.tags = JSON.stringify(fields.tags.split(',')) || '[]'
+    fields.updated_at = new Date()
     const string = knex('companies')
-        .where({ id: companyId })
+        .where({ id: Number(companyId) })
         .update(fields)
         .returning('*')
         .toString()

@@ -5,11 +5,14 @@ const bcrypt = require('bcryptjs')
 const assert = require('better-assert')
 const debug = require('debug')('app:belt')
 const Autolinker = require('autolinker')
-
+const revenue = require('./static').revenue
 // A dumping ground of common functions used around the app.
 // As it gets full, consider extracting similar functions into
 // separate modules to stay organized.
 
+exports.formatRevenue = function(d) {
+  return revenue[d || 0];
+}
 // Ex: formatDate(d) -> '8 Dec 2014 16:24'
 exports.formatDate = function(d) {
   assert(d instanceof Date)

@@ -1,8 +1,7 @@
-// Node
 const path = require('path')
 const { promisify } = require('util')
 const readFile = promisify(require('fs').readFile)
-// 1st
+
 const config = require('../src/config')
 const { pool } = require('../src/db/util')
 

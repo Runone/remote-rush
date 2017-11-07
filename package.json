@@ -1,10 +1,9 @@
 {
-  "name": "koa-skeleton",
-  "description": "a simple, full-featured koa application made to be forked and modified",
-  "version": "3.0.0",
+  "name": "remote-rush",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/danneu/koa-skeleton"
+    "url": "https://github.com/plentyrad/remote-rush"
   },
   "scripts": {
     "start": "node app.js",
@@ -45,7 +44,6 @@
     "recaptcha-validator": "^1.0.11",
     "uuid": "^3.0.1"
   },
-  "license": "MIT",
   "devDependencies": {
     "prettier": "^1.7.4"
   }
