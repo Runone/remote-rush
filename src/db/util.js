@@ -1,13 +1,8 @@
-// 3rd
-const { extend, parseUrl } = require('pg-extra')
+const { extend } = require('pg-extra')
 const pg = extend(require('pg'))
-// 1st
+
 const config = require('../config')
 
-// =========================================================
-
-// This is the connection pool the rest of our db namespace
-// should import and use
 const c = {
     host: process.env.PGHOST ? process.env.PGHOST : 'localhost',
     user: process.env.PGUSER ? process.env.PGUSER : 'vagrant_root',
