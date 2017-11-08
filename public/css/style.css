@@ -501,3 +501,173 @@ ul {
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
     }
 }
+
+.newsletter {
+    height: 80px;
+    max-width: 400px;
+    margin: 50px auto;
+    position: relative;
+}
+
+.newsletter > span.container {
+    display: block;
+    width: 100%;
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+    padding: 20px 10px 10px 10px;
+    opacity: 0;
+}
+.newsletter > span.container.active {
+    opacity: 1;
+    z-index: 2;
+}
+.newsletter > span.container.active + .submit {
+    z-index: 3;
+    top: 20px;
+    opacity: 1;
+}
+.newsletter > span.container > label {
+    display: block;
+    position: absolute;
+    top: -5px;
+    line-height: 18px;
+}
+.newsletter > span.container > label.fadeOut {
+    opacity: 0;
+    top: 10px;
+}
+.newsletter > span.container > input {
+    padding: 15px;
+    margin: 0;
+    width: 100%;
+    outline: none;
+    border: 1px solid #d1d1d1;
+    border-radius: 3px;
+    font-family: -apple-system, helvetica neue, helvetica, arial, sans-serif;
+    font-weight: 200;
+    font-size: 18px;
+    line-height: 18px;
+    height: 53px;
+}
+.newsletter > span.container .next {
+    display: block;
+    position: absolute;
+    height: 53px;
+    width: 53px;
+    top: 20px;
+    right: 10px;
+    text-align: center;
+    border-radius: 0 3px 3px 0;
+    border-top: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+}
+.newsletter > span.container .next:hover {
+    color: #22a31b;
+    cursor: pointer;
+}
+.newsletter > span.container .next:hover:before {
+    color: #22a31b;
+}
+.newsletter > span.container .next:before {
+    content: '\f061';
+    font-family: FontAwesome;
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 51px;
+    color: #b6b6b6;
+}
+.newsletter > span.container span.error {
+    color: red;
+    position: absolute;
+    display: block;
+    width: 100%;
+    font-size: 12px;
+    line-height: 12px;
+    bottom: -10px;
+}
+.newsletter > span.submit {
+    display: block;
+    position: absolute;
+    height: 53px;
+    width: 53px;
+    top: 20px;
+    right: 10px;
+    text-align: center;
+    opacity: 0;
+    border-radius: 0 3px 3px 0;
+    border-top: 1px solid transparent;
+    border-right: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    overflow: hidden;
+    background: #b6b6b6;
+}
+.newsletter > span.submit:hover {
+    background: #82409D;
+    border-top: 1px solid #82409D;
+    border-right: 1px solid #82409D;
+    border-bottom: 1px solid #82409D;
+    cursor: pointer;
+}
+.newsletter > span.submit:hover:before {
+    color: white;
+}
+.newsletter > span.submit:before {
+    font-weight: 200;
+    line-height: 51px;
+    color: white;
+}
+.newsletter > span.submit:after {
+    content: "You're subscribed!";
+    display: block;
+    color: white;
+    font-weight: 400;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+    height: 100%;
+    width: 100%;
+    line-height: 51px;
+    position: absolute;
+    top: 10px;
+    opacity: 0;
+}
+.newsletter > span.submit.submitted {
+    transition: 0.75s cubic-bezier(0.19, 1, 0.22, 1);
+    width: calc(100% - 20px);
+    background: #22a31b;
+    border: 1px solid #158010;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.newsletter > span.submit.submitted:before {
+    color: white;
+    position: relative;
+    top: -50px;
+    right: -100px;
+    transition: .25s .75s ease-in-out;
+}
+.newsletter > span.submit.submitted:after {
+    top: 0;
+    opacity: 1;
+    color: white;
+    transition: .5s 1s ease-in-out;
+}
+.checkmark {
+    display: block;
+    margin: 0 auto;
+    text-align:center;
+}
+.checkmark:after {
+    content: '';
+    display: block;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-top: 15px;
+    margin-left: 20px;
+}
+.checkmark.medium:after {
+    width: 8px;
+    height: 16px;
+}

@@ -6,36 +6,61 @@
     <div class="column" style="text-align:center">
         <h1>Work where you feel best, no matter the location.</h1>
         <p>Use Remote Rush to find your next remote employer!</p>
-        <a href="#" class="btn purple" disabled>Find a Job <small>(Coming soon)</small></a>
+        <!--<a href="#" class="btn purple" disabled>Find a Job <small>(Coming soon)</small></a>-->
+        <div id="sub">
+            <form class="newsletter">
+                <span class="container active">
+                <label for="email">Get notified of new remote jobs.</label>
+                <input class="required" type="email" id="email" name="email"/>
+                </span>
+                <span id="subscribe" class="submit" title="Subscribe"><div class="checkmark medium"></div></span>
+            </form>
+        </div>
     </div>
 </div>
+<div class="row">
+    {% if companies.length == 0 %}
+        No companies so far. Wanna be the first?
+    {% endif %}
 
-{% if companies.length == 0 %}
-    No companies so far. Wanna be the first?
-{% endif %}
-
-{% if companies.length > 0 %}
-<table class="table">
-    <thead>
-        <tr>
-            <td data-label="logo"></td>
-            <td data-label="name">Name</td>
-            <td data-label="url">URL</td>
-            <td data-label="founded">Founded</td>
-            <td data-label="revenue">Revenue</td>
-            <td data-label="salaries">Salaries</td>
-            <td data-label=""></td>
-        </tr>
-    </thead>
-    <tbody>
-    {% for company in companies %}
-        {{ macros.renderCompanyRow(ctx, company, '/') }}
-    {% endfor %}
-    </tbody>
-</table>
-{% endif %}
-
+    {% if companies.length > 0 %}
+    <table class="table">
+        <thead>
+            <tr>
+                <td data-label="logo"></td>
+                <td data-label="name">Name</td>
+                <td data-label="url">URL</td>
+                <td data-label="founded">Founded</td>
+                <td data-label="revenue">Revenue</td>
+                <td data-label="salaries">Salaries</td>
+                <td data-label=""></td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for company in companies %}
+            {{ macros.renderCompanyRow(ctx, company, '/') }}
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
 {% endblock %}
 
 {% block scripts %}
+<script>
+    const request = new XMLHttpRequest();
+
+    request.onreadystatechange = function() {
+        if(request.readyState === 4 && request.status === 200) {
+            document.getElementById('sub').innerHTML = '<h2>Subscribed!</h2>'
+        }
+    }
+
+    request.open("POST", '/subscribe');
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+    document.getElementById('subscribe').addEventListener('click', function() {
+        request.send(JSON.stringify({ email: document.getElementById('email').value }));
+    });
+</script>
 {% endblock %}

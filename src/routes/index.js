@@ -1,6 +1,7 @@
 const assert = require('better-assert')
 const router = require('koa-router')()
 const debug = require('debug')('app:routes:index')
+const sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
 
 const db = require('../db')
 const pre = require('../presenters')
@@ -51,6 +52,27 @@ router.get('/post', async ctx => {
     await ctx.render('job_post', {
       companies
     })
+})
+
+router.post('/subscribe', async ctx => {
+    const request = sg.emptyRequest({
+        method: 'POST',
+        path: '/v3/contactdb/recipients',
+        body: [{
+            email: ctx.request.body.email,
+            property: "remote-rush"
+        }]
+    });
+
+    sg.API(request)
+        .then(function (response) {
+            ctx.body = response.body;
+        })
+        .catch(function (error) {
+            ctx.body = error.response.body.errors;
+        });
+
+    ctx.status = 200;
 })
 
 router.post('/post', async ctx => {

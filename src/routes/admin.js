@@ -2,8 +2,7 @@ const Router = require('koa-router')
 const debug = require('debug')('app:routes:admin')
 
 const db = require('../db')
-const revenue = require('../belt').revenue
-
+const revenue = require('../static').revenue
 // Every route in this router is only accessible to admins
 
 const router = new Router()
