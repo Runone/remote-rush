@@ -7,7 +7,7 @@
 
         <div class="input-fields">
             <form action="/admin/companies/{{company.id}}" method="POST">
-                <label for="name">Logo</label>
+                <label for="logo">Logo</label>
                 <input type="text" name="logo" id="logo" value="{{company.logo}}"/>
 
                 <label for="name">Name</label>
@@ -23,6 +23,13 @@
                 <select name="revenue" id="revenue">
                     {% for rev in revenue %}
                         <option value="{{loop.index - 1}}">{{rev}}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="employees">Employees</label>
+                <select name="employees" id="employees">
+                    {% for emp in employees %}
+                    <option value="{{loop.index - 1}}">{{emp}}</option>
                     {% endfor %}
                 </select>
 

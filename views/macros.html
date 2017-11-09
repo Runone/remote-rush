@@ -23,10 +23,11 @@
 
 {% macro renderCompanyRow(ctx, company) %}
 <tr>
-  <td data-label="logo"><img src="{{ company.logo }}" /></td>
+  <td data-label="logo"><img src="{{ company.logo }}" width="50px" height="50px" style="margin-top:15px"/></td>
   <td data-label="company">{{ company.name }}</td>
   <td data-label="url"><a href="{{ company.url }}">{{ company.url }}</a></td>
   <td data-label="year_founded">{{ company.year_founded }}</td>
+  <td data-label="employees">{{ company.employees|formatEmployeeCount }}</td>
   <td data-label="revenue">{{ company.revenue|formatRevenue }}</td>
   <td data-label="avg_salary">
       <ul class="tags purple">

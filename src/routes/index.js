@@ -13,13 +13,20 @@ const cache = require('../cache')
 
 // //////////////////////////////////////////////////////////
 
+function preLaunch() {
+    return (ctx, next) => {
+        if (!ctx.request.url.startsWith('/subscribe') && !ctx.request.url.startsWith('/login') && !ctx.request.url.startsWith('/companies') && !ctx.request.url.startsWith('/admin')) ctx.redirect('/companies')
+        else next()
+    }
+}
+
 // Useful route for quickly testing something in development
 // 404s in production
 router.get('/test', async ctx => {
   ctx.assert(config.NODE_ENV === 'development', 404)
 })
 
-router.get('/', async ctx => {
+router.get('/', preLaunch(), async ctx => {
   const jobs = await db.getJobs(1)
   //jobs.forEach(pre.presentJob)
   await ctx.render('homepage', {

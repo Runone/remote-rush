@@ -5,6 +5,7 @@ const Koa = require('koa')
 const bouncer = require('koa-bouncer')
 const debug = require('debug')('app:index')
 const convert = require('koa-convert')
+
 // 1st party
 const config = require('./config')
 const mw = require('./middleware')
@@ -48,6 +49,7 @@ const nunjucksOptions = {
     md5: belt.md5,
     toAvatarUrl: belt.toAvatarUrl,
     autolink: belt.autolink,
+    formatEmployeeCount: belt.formatEmployeeCount,
     formatRevenue: belt.formatRevenue
   },
 }
