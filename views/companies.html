@@ -24,25 +24,9 @@
     {% endif %}
 
     {% if companies.length > 0 %}
-    <table class="table">
-        <thead>
-            <tr>
-                <td data-label="logo"></td>
-                <td data-label="name">Name</td>
-                <td data-label="url">URL</td>
-                <td data-label="founded">Founded</td>
-                <td data-label="employees">Employees</td>
-                <td data-label="revenue">Revenue</td>
-                <td data-label="salaries">Salaries</td>
-                <td data-label=""></td>
-            </tr>
-        </thead>
-        <tbody>
         {% for company in companies %}
             {{ macros.renderCompanyRow(ctx, company, '/') }}
         {% endfor %}
-        </tbody>
-    </table>
     {% endif %}
 </div>
 {% endblock %}

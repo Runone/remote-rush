@@ -68,6 +68,7 @@ router.post('/admin/companies/:id', async ctx => {
       logo: url,
       name: ctx.request.body.name,
       url: ctx.request.body.url,
+      description: ctx.request.body.description,
       year_founded: ctx.request.body.year_founded,
       revenue: ctx.request.body.revenue,
       employees: ctx.request.body.employees,
