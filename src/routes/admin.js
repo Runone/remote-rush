@@ -46,7 +46,7 @@ router.post('/admin/companies/:id', async ctx => {
         ACL: 'public-read'
     };
 
-    if (url.indexOf('remote-rush') < 0) {
+    if (url.indexOf('remote-rush') < 0 && url) {
         await request(ctx.request.body.logo, {encoding: 'binary'}, async (error, response, body) => {
             await fs.writeFile('/tmp/tmp.png', body, 'binary');
             await gm('/tmp/tmp.png').resize(150).write('/tmp/tmp.png', function (err) {
@@ -65,7 +65,7 @@ router.post('/admin/companies/:id', async ctx => {
   await (async () => {
     // Insert
     await db.updateCompany(ctx.vals.id, {
-      logo: url,
+      logo: url || '',
       name: ctx.request.body.name,
       url: ctx.request.body.url,
       description: ctx.request.body.description,
