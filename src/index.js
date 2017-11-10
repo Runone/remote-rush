@@ -50,7 +50,8 @@ const nunjucksOptions = {
     toAvatarUrl: belt.toAvatarUrl,
     autolink: belt.autolink,
     formatEmployeeCount: belt.formatEmployeeCount,
-    formatRevenue: belt.formatRevenue
+    formatRevenue: belt.formatRevenue,
+    initials: belt.initials
   },
 }
 

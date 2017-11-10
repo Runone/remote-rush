@@ -11,6 +11,19 @@ const staticVars = require('./static')
 // As it gets full, consider extracting similar functions into
 // separate modules to stay organized.
 
+exports.initials = function(d) {
+  const nameSplit = String(d).toUpperCase().split(' ');
+  let initials = '';
+
+  if (nameSplit.length === 1) {
+    initials = nameSplit[0] ? nameSplit[0].charAt(0):'?';
+  } else {
+    initials = nameSplit[0].charAt(0) + nameSplit[1].charAt(0);
+  }
+
+  return initials;
+}
+
 exports.formatEmployeeCount = function(d) {
     return staticVars.employees[d || 0];
 }

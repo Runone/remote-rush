@@ -24,11 +24,17 @@
 {% macro renderCompanyRow(ctx, company) %}
 <div class="row" style="border: 1px solid #e5e5e5; margin-bottom: 10px;padding:10px;font-size: 14px;">
     <div style="margin-top:15px">
-        <div class="two columns"><img src="{{ company.logo }}" width="50px" height="50px"/></div>
+        <div class="two columns">
+            {% if (company.logo) %}
+                <img src="{{ company.logo }}" width="50px" height="50px"/>
+            {% else %}
+                <div id="initials" style="width:50px;height:50px">{{ company.name|initials }}</div>
+            {% endif %}
+        </div>
         <div class="two columns">{{company.name}}<br><a href="{{ company.url }}">{{ company.url }}</a></div>
         <div class="two columns"><small>Founded:</small><br> {{ company.year_founded }}</div>
-        <div class="two columns"><small>Employees:</small><br> {{ company.employees|formatEmployeeCount }}</div>
-        <div class="two columns"><small>Revenue:</small><br> {{ company.revenue|formatRevenue }}</div>
+        <div class="two columns"><small>Est. Employees:</small><br> {{ company.employees|formatEmployeeCount }}</div>
+        <div class="two columns"><small>Est. Revenue:</small><br> {{ company.revenue|formatRevenue }}</div>
         <div class="two columns">{% if ctx.currUser %}<a href="/admin/companies/{{company.id}}">Edit</a>{% endif %}</div>
     </div>
     <div class="ten columns offset-by-two" style="margin-top:15px;border-top: 1px solid #e5e5e5">
