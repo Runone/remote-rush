@@ -5,13 +5,31 @@ const bcrypt = require('bcryptjs')
 const assert = require('better-assert')
 const debug = require('debug')('app:belt')
 const Autolinker = require('autolinker')
-const revenue = require('./static').revenue
+const staticVars = require('./static')
+
 // A dumping ground of common functions used around the app.
 // As it gets full, consider extracting similar functions into
 // separate modules to stay organized.
 
+exports.initials = function(d) {
+  const nameSplit = String(d).toUpperCase().split(' ');
+  let initials = '';
+
+  if (nameSplit.length === 1) {
+    initials = nameSplit[0] ? nameSplit[0].charAt(0):'?';
+  } else {
+    initials = nameSplit[0].charAt(0) + nameSplit[1].charAt(0);
+  }
+
+  return initials;
+}
+
+exports.formatEmployeeCount = function(d) {
+    return staticVars.employees[d || 0];
+}
+
 exports.formatRevenue = function(d) {
-  return revenue[d || 0];
+  return staticVars.revenue[d || 0];
 }
 // Ex: formatDate(d) -> '8 Dec 2014 16:24'
 exports.formatDate = function(d) {

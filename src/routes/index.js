@@ -2,6 +2,7 @@ const assert = require('better-assert')
 const router = require('koa-router')()
 const debug = require('debug')('app:routes:index')
 const sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
+const searchQuery = require('search-query-parser');
 
 const db = require('../db')
 const pre = require('../presenters')
@@ -10,8 +11,15 @@ const config = require('../config')
 const belt = require('../belt')
 const paginate = require('../paginate')
 const cache = require('../cache')
-
+const staticVars = require('../static')
 // //////////////////////////////////////////////////////////
+
+function preLaunch() {
+    return (ctx, next) => {
+        if (!ctx.request.url.startsWith('/subscribe') && !ctx.request.url.startsWith('/login') && !ctx.request.url.startsWith('/companies') && !ctx.request.url.startsWith('/admin')) ctx.redirect('/companies')
+        else next()
+    }
+}
 
 // Useful route for quickly testing something in development
 // 404s in production
@@ -19,7 +27,7 @@ router.get('/test', async ctx => {
   ctx.assert(config.NODE_ENV === 'development', 404)
 })
 
-router.get('/', async ctx => {
+router.get('/', preLaunch(), async ctx => {
   const jobs = await db.getJobs(1)
   //jobs.forEach(pre.presentJob)
   await ctx.render('homepage', {
@@ -29,10 +37,14 @@ router.get('/', async ctx => {
 })
 
 router.get('/companies', async ctx => {
-    const companies = await db.getCompanies()
+    const companies = await db.getCompanies(ctx.query)
     await ctx.render('companies', {
         ctx,
-        companies
+        companies,
+        revenue: staticVars.revenue,
+        employees: staticVars.employees,
+        employeeIndex: ctx.query.employees,
+        revenueIndex: ctx.query.revenue
     })
 })
 
