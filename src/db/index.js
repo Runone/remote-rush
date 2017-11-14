@@ -134,6 +134,18 @@ exports.getCompanyById = async function(companyId) {
   `)
 }
 
+exports.searchCompanies = async function(filters) {
+  let query = {};
+
+  const string = knex('companies')
+    .where(query)
+    .returning('*')
+    .toString()
+
+
+  return pool.one(_raw`${string}`)
+}
+
 exports.updateCompany = async function(companyId, fields) {
     fields.avg_salaries = fields.avg_salaries || '{}'
     fields.tags = JSON.stringify(fields.tags.split(',')) || '[]'
@@ -188,12 +200,15 @@ exports.getJobs = async function(approved) {
   `)
 }
 
-exports.getCompanies = async function() {
-    return pool.many(sql`
-    SELECT * FROM companies
-  `)
+exports.getCompanies = async function(query) {
+  if (query.revenue) query.revenue = parseInt(query.revenue)
+  if (query.employees) query.employees = parseInt(query.employees)
+  const string = knex('companies')
+    .where(query)
+    .returning('*')
+    .toString()
+  return pool.many(_raw`${string}`)
 }
-
 
 // //////////////////////////////////////////////////////////
 

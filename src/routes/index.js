@@ -2,6 +2,7 @@ const assert = require('better-assert')
 const router = require('koa-router')()
 const debug = require('debug')('app:routes:index')
 const sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
+const searchQuery = require('search-query-parser');
 
 const db = require('../db')
 const pre = require('../presenters')
@@ -10,7 +11,7 @@ const config = require('../config')
 const belt = require('../belt')
 const paginate = require('../paginate')
 const cache = require('../cache')
-
+const staticVars = require('../static')
 // //////////////////////////////////////////////////////////
 
 function preLaunch() {
@@ -36,10 +37,14 @@ router.get('/', preLaunch(), async ctx => {
 })
 
 router.get('/companies', async ctx => {
-    const companies = await db.getCompanies()
+    const companies = await db.getCompanies(ctx.query)
     await ctx.render('companies', {
         ctx,
-        companies
+        companies,
+        revenue: staticVars.revenue,
+        employees: staticVars.employees,
+        employeeIndex: ctx.query.employees,
+        revenueIndex: ctx.query.revenue
     })
 })
 
